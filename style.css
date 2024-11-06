@@ -282,7 +282,6 @@ section {
 .github-link,
 .deployment-link {
     height: 100%;
-
     aspect-ratio: 1;
 }
 
@@ -296,7 +295,7 @@ section {
 .deployment-link a img {
     height: 100%;
     width: 100%;
-    opacity: 0;
+    opacity: 0.5;
     border-radius: 50%;
     transition: all 0.5 ease-in;
 }
