@@ -276,6 +276,7 @@ section {
 .links-container {
     display: flex;
     height: 30px;
+    aspect-ratio: 1;
     justify-content: space-around;
 }
 
