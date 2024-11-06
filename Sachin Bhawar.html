@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en" class="sr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sachin Bhawar</title>
+
+        </head><body style="height: 100%;">// bootstrap cnd links
+        <link href="./Sachin Bhawar_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="./Sachin Bhawar_files/bootstrap.bundle.min.js.download" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        // for scroll animation
+        <script src="./Sachin Bhawar_files/scrollreveal"></script>
+
+        // style sheet my own
+        <link rel="stylesheet" href="./Sachin Bhawar_files/style.css">
+        <link rel="shortcut icon" href="http://127.0.0.1:5500/assets/logo.jpg" type="image/x-icon">
+    
+    
+        <header id="header" class="container-fluid d-flex align-items-center justify-content-between">
+            <div id="logo" class="d-flex align-items-center">Sachin Bhawar</div>
+
+            <ul class="d-none d-sm-flex list-unstyled my-auto" style="gap: 1.1rem">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#resume">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#work">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5500/index.html#contact">Contact</a>
+                </li>
+            </ul>
+
+            <div id="hamberger-container" class="d-sm-none d-flex flex-column justify-content-between" onclick="toggleModal()">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </header>
+        <div id="modal" class="modal-hide d-sm-none">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/index.html#about" onclick="toggleModal()">About</a></li>
+                <li><a href="http://127.0.0.1:5500/index.html#resume" onclick="toggleModal()">Resume</a></li>
+                <li><a href="http://127.0.0.1:5500/index.html#projects" onclick="toggleModal()">Projects</a></li>
+                <li><a href="http://127.0.0.1:5500/index.html#education" onclick="toggleModal()">Education</a></li>
+                <li><a href="http://127.0.0.1:5500/index.html#work" onclick="toggleModal()">Experience</a></li>
+                <li><a href="http://127.0.0.1:5500/index.html#contact" onclick="toggleModal()">Contact</a></li>
+            </ul>
+        </div>
+        <!-- Header End -->
+
+        <!-- main start -->
+        <main style="border: 2px solid red">
+            <!-- home section start -->
+            <section id="home" class="d-flex flex-column align-items-center">
+                <div id="img-container" class="col-8 col-sm-5 col-md-4 col-lg-2">
+                    <img src="./Sachin Bhawar_files/myPhoto.jpg" class="img-fluid" alt="User Image">
+                </div>
+
+                <h2 style="text-align: center">
+                    Hello!👋, I'am <strong>Sachin Bhawar</strong> <br>
+                    <strong><span id="dynamicText">React Develop</span></strong>
+                    <span id="blinking-cursor">.</span>
+                </h2>
+
+                <div id="social-icon-container" class="d-flex align-items-center">
+                    <div class="social-icon">
+                        <a href="https://www.linkedin.com/in/sachin-bhawar/" target="_blank"><img src="./Sachin Bhawar_files/linkedin.png"></a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://github.com/sachinbhawar2014" target="_blank"><img src="./Sachin Bhawar_files/github.png"></a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://wa.me/9604328867" target="_blank"><img src="./Sachin Bhawar_files/whatsapp.png"></a>
+                    </div>
+                </div>
+            </section>
+            <!-- home section end -->
+
+            <!-- About section start-->
+            <section id="about" class="d-flex flex-column flex-md-row justify-content-center mx-auto">
+                <div id="about-profile" class="col-11 col-md-5 p-3 align-items-center">
+                    <div id="profile-container" class="d-flex flex-column flex-lg-row align-items-center" style="gap: 1.2rem">
+                        <div id="profile-img-container" class="col-7 col-md-7 col-lg-5">
+                            <img src="./Sachin Bhawar_files/myPhoto.jpg" alt="myPhoto">
+                        </div>
+                        <div id="profile-info">
+                            <h6><strong>Name: </strong>Sachin Bhawar</h6>
+                            <h6><strong>Profile: </strong>Full stack developer</h6>
+                            <h6><strong>Email: </strong>sachinbhavar@gmail.com</h6>
+                            <h6><strong>Mobile: </strong>+91-9604328867</h6>
+                        </div>
+                    </div>
+                    <div id="skill-container" class="py-3">
+                        <!-- skill 1 html -->
+                        <div class="skill-name-container d-flex justify-content-between">
+                            <span><strong>HTML</strong></span><span><small>90%</small></span>
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="progress-bar html animate-html"></div>
+                        </div>
+
+                        <!-- skill 2 React -->
+                        <div class="skill-name-container d-flex justify-content-between">
+                            <span><strong>ReactJS</strong></span><span><small>80%</small></span>
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="progress-bar reactjs animate-reactjs"></div>
+                        </div>
+
+                        <!-- skill 3 NodeJs -->
+                        <div class="skill-name-container d-flex justify-content-between">
+                            <span><strong>NodeJs</strong></span><span><small>75%</small></span>
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="progress-bar nodejs animate-nodejs"></div>
+                        </div>
+
+                        <!-- skill 3 MongoDb -->
+                        <div class="skill-name-container d-flex justify-content-between">
+                            <span><strong>MongoDB</strong></span><span><small>80%</small></span>
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="progress-bar mongodb animate-mongodb"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="about-summary" class="col-11 col-md-5 p-3">
+                    <div class="section-heading d-flex flex-column align-items-center justify-content-center">
+                        <h2 class="heading">About Me</h2>
+                    </div>
+                    <p>
+                        I’m Sachin Bhawar, a Frontend Developer focused on building user-friendly web
+                        applications with React. Skilled in React, Redux Toolkit, and JavaScript, I love
+                        creating responsive, efficient, and engaging user experiences. I’m driven to keep
+                        enhancing my skills and delivering impactful, accessible web solutions.
+                    </p>
+                    <p>
+                        Outside of coding, I enjoy trekking, long drives, and the beauty of nature, which
+                        inspires my work. A cricket enthusiast, I bring the same spirit of strategy and
+                        teamwork to development.
+                    </p>
+
+                    <p>
+                        I’m driven to keep enhancing my skills and delivering impactful, accessible web
+                        solutions.
+                    </p>
+                </div>
+            </section>
+            <!-- About section end -->
+
+            <section id="projects" class="d-flex flex-column mx-auto">
+                <div class="section-heading d-flex flex-row mx-5 mx-lg-15">
+                    <h2 class="heading">Projects</h2>
+                </div>
+                <div id="projects-wrap" class="parent p-3 d-flex flex-column flex-md-row justify-content-center mx-auto flex-wrap align-items-center">
+                    <div class="project col-9 col-sm-5 col-lg-3" data-sr-id="1" style="visibility: visible; opacity: 0; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 20, 0, 1);">
+                        <div class="project-img-wrap"><img src="./Sachin Bhawar_files/project1.jpg"></div>
+                    </div>
+                    <div class="project col-9 col-sm-5 col-lg-3" data-sr-id="3" style="visibility: visible; opacity: 0; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 20, 0, 1);">
+                        <div class="project-img-wrap"><img src="./Sachin Bhawar_files/project1.jpg"></div>
+                        2
+                    </div>
+                    <div class="project col-9 col-sm-5 col-lg-3" data-sr-id="4" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 0.1s cubic-bezier(0.5, 0, 0, 1), transform 0.1s cubic-bezier(0.5, 0, 0, 1);">
+                        <div class="project-img-wrap"><img src="./Sachin Bhawar_files/project1.jpg"></div>
+                        3
+                    </div>
+                    <div class="project col-9 col-sm-5 col-lg-3" data-sr-id="5" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 0.1s cubic-bezier(0.5, 0, 0, 1), transform 0.1s cubic-bezier(0.5, 0, 0, 1);">
+                        <div class="project-img-wrap"><img src="./Sachin Bhawar_files/project1.jpg"></div>
+                        5
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            // Toggle modal
+            const modal = document.getElementById("modal");
+            function toggleModal() {
+                console.log("toggleModal");
+                if (modal.classList.contains("modal-hide")) {
+                    modal.classList.remove("modal-hide");
+                } else {
+                    modal.classList.add("modal-hide");
+                }
+            }
+
+            // Typing Animation
+            const typingBox = document.getElementById("dynamicText");
+            // console.log(typingBox);
+            const roles = ["Web Developer", "React Developer", "Coding Enthusiast"];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let typingDelay = 80;
+            let errasingDelay = 60;
+
+            function type() {
+                if (roleIndex < roles.length) {
+                    if (charIndex < roles[roleIndex].length) {
+                        typingBox.textContent += roles[roleIndex][charIndex];
+                        charIndex++;
+                        setTimeout(() => {
+                            // console.log(charIndex);
+                            type();
+                        }, 500);
+                    } else {
+                        charIndex--;
+                        setTimeout(() => {
+                            errase();
+                        }, errasingDelay + 500);
+                    }
+                } else {
+                    roleIndex = 0;
+                    setTimeout(() => {
+                        type();
+                    }, typingDelay);
+                }
+            }
+
+            function errase() {
+                if (charIndex >= 0) {
+                    let text = typingBox.textContent;
+                    typingBox.textContent = text.substring(0, charIndex);
+                    charIndex--;
+                    setTimeout(() => {
+                        errase();
+                    }, errasingDelay);
+                } else {
+                    charIndex++;
+                    roleIndex++;
+
+                    setTimeout(() => {
+                        type();
+                    }, typingDelay);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                type();
+            });
+
+            // animate skills progress bars
+            // Helper function to check if an element is in the viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                return rect.top <= viewportHeight * 0.7 || rect.bottom <= viewportHeight * 0.7;
+            }
+
+            function handleScrollAnimation() {
+                const container = document.getElementById("skill-container");
+                const progressBars = document.querySelectorAll(".progress-bar");
+
+                if (isInViewport(container)) {
+                    // Add animation classes when the container is in the viewport
+                    progressBars.forEach((bar) => {
+                        if (bar.classList.contains("html")) bar.classList.add("animate-html");
+                        if (bar.classList.contains("reactjs")) bar.classList.add("animate-reactjs");
+                        if (bar.classList.contains("nodejs")) bar.classList.add("animate-nodejs");
+                        if (bar.classList.contains("mongodb")) bar.classList.add("animate-mongodb");
+                    });
+                } else {
+                    // Remove animation classes when the container leaves viewport
+                    progressBars.forEach((bar) => {
+                        bar.classList.remove(
+                            "animate-html",
+                            "animate-reactjs",
+                            "animate-nodejs",
+                            "animate-mongodb"
+                        );
+                    });
+                }
+
+                //animate project divs
+                // const parent = document.querySelector(".parent");
+                // const projectDiv = document.getElementsByClassName("projects");
+                // // console.log(parent);
+                // projectDiv.forEach((div) => {
+                //     if (isInViewport(div)) {
+                //         div.classList.add("animate");
+                //     } else {
+                //         div.classList.remove("animate");
+                //     }
+                // });
+            }
+
+            // Listen for scroll events
+            window.addEventListener("scroll", handleScrollAnimation);
+            window.addEventListener("load", handleScrollAnimation);
+
+            ScrollReveal().reveal(".project", {
+                origin: "bottom", // Animation starts from the bottom
+                distance: "20px", // Move up by 20px
+                duration: 100, // Animation duration in ms
+                interval: 400, // Delay between each div popping up
+                viewFactor: 0.5, // Trigger when the element is 30% within the viewport (adjust to reach 70% from top)
+            });
+        </script>
+    <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./Sachin Bhawar_files/saved_resource.html"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}" style="display: none;"></div><div id="co_speechnotes_plugin_fab_id" class="co_speechnotes_plugin_class" draggable="true" style="display: none; right: 0px; bottom: 70px;"><div class="co_speechnotes_plugin_class" id="co_speechnotes_plugin_fab_drag_handle_id">
+            <div class="co_speechnotes_plugin_class co_speechnotes_plugin_fab_drag_handle_line"></div>
+            <div class="co_speechnotes_plugin_class co_speechnotes_plugin_fab_drag_handle_line"></div>
+        </div>
+  <div class="co_speechnotes_plugin_class" style="position: relative;">    <div class="co_speechnotes_plugin_class" id="speechnotes_widget_right_side"><div id="speechnotes_widget_pref_btn" title="Guide &amp; Preferences"><svg focusable="false" aria-hidden="true" width="36px" height="36px" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path></svg></div></div>   <div class="co_speechnotes_plugin_class" id="speechnotes_widget_left_side"></div>         <div class="co_speechnotes_plugin_class icon-btn" id="co_speechnotes_plugin_fab_mic_btn_id" style="position: relative">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="36px" height="36px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="Bounding_Boxes"><rect fill="none" width="24" height="24"></rect><rect fill="none" width="24" height="24"></rect><rect fill="none" width="24" height="24"></rect></g><g id="Outline"><g id="ui_x5F_spec_x5F_header"></g><g><path d="M12,14c1.66,0,3-1.34,3-3V5c0-1.66-1.34-3-3-3S9,3.34,9,5v6C9,12.66,10.34,14,12,14z"></path><path d="M17,11c0,2.76-2.24,5-5,5s-5-2.24-5-5H5c0,3.53,2.61,6.43,6,6.92V21h2v-3.08c3.39-0.49,6-3.39,6-6.92H17z"></path></g></g></svg>
+        </div>
+           </div>          <div class="co_speechnotes_plugin_class co_speechnotes_plugin_fab_spacer"></div>
+            <select class="co_speechnotes_plugin_class" id="co_speechnotes_plugin_fab_language_selector_id">
+                
+                <option value="en-US">US English</option>
+            <option value="id-ID">Bahasa, Indonesia</option><option value="ms-MY">Bahasa, Melayu</option><option value="bg-BG">Bulgarian</option><option value="ca-ES">Català (Espanya)</option><option value="cs-CZ">Czech</option><option value="da-DK">Dansk (Danish)</option><option value="de-DE">Deutsch</option><option value="nl-NL">Dutch, Netherlands</option><option value="en-AU">English, Australia</option><option value="en-CA">English, Canada</option><option value="en-IN">English, India</option><option value="en-NZ">English, New Zealand</option><option value="en-ZA">English, S. Africa</option><option value="en-GB">English, UK</option><option value="en-US">English, US</option><option value="es-AR">español, Argentina</option><option value="es-BO">español, Bolivia</option><option value="es-CL">español, Chile</option><option value="es-CO">español, Colombia</option><option value="es-CR">español, Costa Rica</option><option value="es-EC">español, Ecuador</option><option value="es-SV">español, El Salvador</option><option value="es-ES">español, España</option><option value="es-US">español, Estados Unidos</option><option value="es-GT">español, Guatemala</option><option value="es-HN">español, Honduras</option><option value="es-MX">español, México</option><option value="es-NI">español, Nicaragua</option><option value="es-PA">español, Panamá</option><option value="es-PY">español, Paraguay</option><option value="es-PE">español, Perú</option><option value="es-PR">español, Puerto Rico</option><option value="es-DO">español, R. Dominicana</option><option value="es-UY">español, Uruguay</option><option value="es-VE">español, Venezuela</option><option value="fr-FR">français</option><option value="is-IS">Icelandic</option><option value="zu-ZA">IsiZulu</option><option value="it-IT">italiano</option><option value="it-CH">italiano, Svizzera</option><option value="ko-KR">Korean</option><option value="hi-IN">Hindi हिन्दी</option><option value="hu-HU">Magyar</option><option value="nb-NO">Norwegian</option><option value="pl-PL">Polski</option><option value="pt-BR">Português, Brasil</option><option value="pt-PT">Português, Portugal</option><option value="ro-RO">română</option><option value="ru-RU">Pусский</option><option value="sr-RS">Serbian</option><option value="sk-SK">Slovak</option><option value="fi-FI">Suomi</option><option value="sv-SE">Svenska</option><option value="tr-TR">Turkish</option><option value="el-GR">Ελληνικά</option><option value="cmn-Hans-CN">普通话 (中国大陆)</option><option value="cmn-Hans-HK">普通话 (香港)</option><option value="cmn-Hant-TW">中文 (台灣)</option><option value="yue-Hant-HK">粵語 (香港)</option><option value="ja-JP">日本語 (Japanese)</option><option value="th-TH">ไทย (Thai)</option><option value="hi-IN">हिन्दी (Hindi)</option><option value="gu-IN">ગુજરાતી (Gujarati)</option><option value="mr-IN">मराठी Marathi (India)</option><option value="ta-IN">தமிழ் Tamil (India)</option><option value="te-IN">తెలుగు Telugu (India)</option><option value="ur-IN">اردو (بھارت) Urdu (India)</option><option value="ur-PK">اردو (پاکستان) Urdu (Pakistan)</option><option value="he-IL">עברית</option><option value="ar-DZ">العربية, Algeria</option><option value="ar-EG">العربية, Egypt</option><option value="ar-IQ">العربية, Iraq</option><option value="ar-JO">العربية, Jordan</option><option value="ar-KW">العربية, Kuwait</option><option value="ar-LB">العربية, Lebanon</option><option value="ar-MA">العربية, Morocco</option><option value="ar-QA">العربية, Qatar</option><option value="ar-SA">العربية, Saudi Arabia</option><option value="ar-AE">العربية, UAE</option><option value="fa-IR">فارسی, Persian (Farsi)</option></select>        <div class="co_speechnotes_plugin_class co_speechnotes_plugin_fab_spacer"></div>
+        <div class="co_speechnotes_plugin_class" id="upgrade_btn" style="display:block">CLICK TO UPGRADE</div>
+</div><div draggable="true" id="co_speechnotes_plugin_textarea_container_id" class="co_speechnotes_plugin_class" style="display: none;"><div id="co_speechnotes_plugin_close_btn_id">
+            ✕
+        </div>
+        <div id="co_speechnotes_plugin_copy_btn_id">
+            <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+                📄<span style="position: absolute; top: .15em; left: .15em">📄</span>
+            </span>&nbsp;<span id="co_speechnotes_plugin_copy_btn_title_id" style="font-family: &#39;courier new&#39;, courier, monospace;font-size: 16px">COPY</span>
+        </div>
+        <div id="co_speechnotes_plugin_inner_text_area_container_id">
+            <textarea id="co_speechnotes_plugin_textarea_id" placeholder="Transcription results will appear here. You can type in and edit it as well."></textarea>
+        </div></div><div id="co_speechnotes_plugin_interim_bubble_container_id" class="co_speechnotes_plugin_class"><div id="co_speechnotes_plugin_interim_bubble_id" class="co_speechnotes_plugin_class" style="opacity: -3.19189e-16; display: none;"></div></div></body></html>
