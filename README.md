@@ -48,7 +48,7 @@ Feel free to reach out through the form on the website or connect with me via:
 - **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/sachin-bhawar/)
 - **GitHub**: [GitHub Profile](https://github.com/sachinbhawar2014)
 - **Email**: sachinbhavar@gmail.com
-- **PortFolio**: [GitHub Profile](https://sachinbhawar.netlify.app/))
+- **PortFolio**: [PortFolio website](https://sachinbhawar.netlify.app/))
 
 ---
 
