@@ -456,8 +456,8 @@
             const roles = ["Web Developer", "React Developer", "Coding Enthusiast"];
             let roleIndex = 0;
             let charIndex = 0;
-            let typingDelay = 80;
-            let errasingDelay = 60;
+            let typingDelay = 100;
+            let errasingDelay = 80;
 
             function type() {
                 if (roleIndex < roles.length) {
@@ -467,12 +467,12 @@
                         setTimeout(() => {
                             // console.log(charIndex);
                             type();
-                        }, 500);
+                        }, typingDelay);
                     } else {
                         charIndex--;
                         setTimeout(() => {
                             errase();
-                        }, errasingDelay + 500);
+                        }, errasingDelay + 700);
                     }
                 } else {
                     roleIndex = 0;
