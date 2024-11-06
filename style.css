@@ -276,14 +276,13 @@ section {
 .links-container {
     display: flex;
     height: 30px;
-    aspect-ratio: 1;
     justify-content: space-around;
 }
 
 .github-link,
 .deployment-link {
-    height: 100%;
-    aspect-ratio: 1;
+    height: 30px;
+    width: 30px;
 }
 
 .github-link a img:hover,
