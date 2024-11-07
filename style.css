@@ -299,3 +299,7 @@ section {
     border-radius: 50%;
     transition: all 0.5 ease-in;
 }
+
+footer h6 {
+    line-height: 2rem;
+}
