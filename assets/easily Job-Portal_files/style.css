@@ -1,0 +1,807 @@
+/* Layout view styles line no 4 to 209  */
+/* recruiter/jobseaker register and login css styless line no 211 to 303 */
+/* styles for post/update job form view line 306 to 380 */
+/* style for all job view line no 385 to 455*/
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../bg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    min-height: 900px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/* navbar styles */
+#navbar2 {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+#logo {
+    font-family: sans-serif;
+    font-size: 900;
+    letter-spacing: 3px;
+    color: white;
+    font-weight: bolder;
+    margin: 5px 20px;
+}
+
+.container {
+    font-family: "Open Sans", sans-serif;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    padding: 15px 15px;
+}
+.navbar-ul > li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 15px 15px;
+}
+
+.navbar-ul li a {
+    color: rgb(222, 213, 213);
+    text-decoration: none;
+}
+
+.navbar-ul li a:hover {
+    color: white;
+    z-index: 2;
+    text-shadow: 0px 0px #fff;
+}
+.dropdown {
+    display: none;
+}
+.dropdown ul {
+    list-style: none;
+    padding: 5px 0px;
+}
+.dropdown ul li {
+    padding: 10px 5px;
+}
+.navbar-ul li:hover .dropdown {
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    list-style-type: none;
+    color: white;
+    padding: 10px 5px;
+}
+.container form {
+    margin-right: 15px;
+}
+.container form input {
+    padding: 8px 5px;
+    border: none;
+    border-radius: 4px;
+}
+.search-btn {
+    background-color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+.navbar2 #three-bars {
+    display: none;
+    left: 0;
+}
+.container #three-bars i {
+    color: white;
+    margin: 12px;
+}
+
+.cookie-text-span {
+    color: white;
+    font-size: 12px;
+}
+@media (max-width: 900px) {
+    .navbar2 > ul li {
+        margin: 15px 3px;
+    }
+
+    .container form input {
+        padding: 8px 3px;
+        width: 80px;
+    }
+    .container {
+        padding: 15px 3px;
+    }
+    .search-btn {
+        padding: 10px 3px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container #menu,
+    .container form {
+        display: none;
+    }
+    .container #three-bars {
+        display: block;
+    }
+    .container {
+        flex-direction: row-reverse;
+    }
+    .cookie-text-span {
+        color: white;
+        font-size: 9px;
+    }
+}
+#body {
+    width: 100%;
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#front-page-body {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#front-page-body > div {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+#front-page-body div h2 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 3rem;
+    color: rgb(222, 34, 66);
+    margin-top: -4rem;
+}
+#front-page-body div h3 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.75rem;
+    color: rgb(135, 23, 160);
+}
+#front-page-body div p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: rgb(103, 31, 119);
+}
+#front-page-body #btn-container {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px;
+    /* gap: 2%; */
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    #front-page-body div {
+        width: 80vw;
+    }
+    #front-page-body div h2 {
+        font-size: 1.5rem;
+    }
+    #front-page-body div h3 {
+        font-size: 1.25rem;
+    }
+    #front-page-body div p {
+        font-size: 0.7rem;
+    }
+}
+
+/* scroll bar css */
+
+/* Define scrollbar width and color */
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 2px; /* width of the scrollbar */
+}
+
+/* Track (the area on which the thumb sits) */
+::-webkit-scrollbar-track {
+    background: #5c5050; /* color of the track */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* color of the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4c0505; /* color of the handle on hover */
+}
+
+/* recruiter/jobseaker register and login css styless */
+.registration-form-container {
+    display: flex;
+
+    padding: 10px 20px;
+    flex-direction: column;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.67);
+}
+
+@media (max-width: 640px) {
+    .registration-form-container {
+        margin: 1rem;
+    }
+}
+
+.registration-form-container .title {
+    /* height: 30px; */
+    padding: 10px 10px;
+    border-bottom: 1px solid gray;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+.registration-form-container .user-details {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    /* justify-content: space-evenly; */
+    box-sizing: border-box;
+}
+.registration-form-container .user-details .input-box {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.registration-form-container .user-details .input-box-post-job {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.registration-form-container .user-details .input-box span {
+    margin: 5px 0;
+}
+
+.registration-form-container .user-details .input-box .input {
+    padding: 7px 5px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+}
+
+.registration-form-container .user-details .input-box .input:focus {
+    border: none;
+    background-color: aquamarine;
+}
+.submit-btn {
+    height: 40px;
+    color: white;
+    margin: 10px 15px 10px 0px;
+    border-radius: 10px;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    font-size: 18px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    background-color: rgb(222, 35, 203);
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+    background-color: palegreen;
+    color: rgb(222, 35, 203);
+}
+
+.login-btn-box {
+    border-top: 1px solid gray;
+}
+
+/* styles for post/update job form view */
+.postJob-form-container {
+    display: flex;
+    width: 600px;
+    padding: 10px 20px;
+    flex-direction: column;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.67);
+}
+
+@media (max-width: 640px) {
+    .postJob-form-container {
+        width: 90vh;
+    }
+}
+
+.postJob-form-container .title {
+    width: 100%;
+    /* height: 30px; */
+    padding: 10px 10px;
+    border-bottom: 1px solid gray;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+.postJob-form-container form .user-details {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    /* justify-content: space-evenly; */
+    box-sizing: border-box;
+}
+.postJob-form-container .user-details .input-box-post-job {
+    width: 45%;
+    display: flex;
+    flex: 1 1 250px;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.postJob-form-container .user-details .desc-textarea {
+    width: 100%;
+    display: flex;
+    /* flex: 0 1 240px; */
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.postJob-form-container .user-details .desc-textarea .input {
+    width: 100%;
+}
+
+.postJob-form-container .user-details .input-box-post-job span,
+.postJob-form-container .user-details .desc-textarea span {
+    margin: 5px 0;
+}
+
+.postJob-form-container .user-details .input-box-post-job .input,
+.postJob-form-container .user-details .desc-textarea .input {
+    padding: 7px 5px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+}
+
+.postJob-form-container .user-details .input-box-post-job .input:focus,
+.postJob-form-container .user-details .desc-textarea .input:focus {
+    border: none;
+    background-color: aquamarine;
+}
+.hidden {
+    visibility: hidden;
+}
+.registration {
+    color: rgb(222, 35, 203);
+    margin: 0px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+    /* background-color: rgba(0, 0, 0, 0.67); */
+}
+
+/* Add a base style for the dropdown when shown */
+.dropdown-active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .navbar-ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 8vh; /* Align just below the navbar */
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .navbar-ul.active {
+        display: flex;
+    }
+
+    .navbar-ul li {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .dropdown {
+        display: none;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.8);
+        width: 100%;
+    }
+
+    .dropdown ul {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dropdown-active ul {
+        display: block;
+    }
+
+    .dropdown li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-ul li:hover .dropdown,
+    .dropdown-active {
+        display: block;
+        width: 100%;
+    }
+
+    #three-bars {
+        display: block;
+        cursor: pointer;
+    }
+
+    .navbar-ul li .dropdown {
+        display: none;
+    }
+
+    .navbar-ul li.active > .dropdown {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* style for all job view */ /* styles for jobs view */
+#cards-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    margin-top: 0px;
+
+    overflow-y: scroll;
+}
+.card {
+    font-family: "Open Sans", sans-serif;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 15px;
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.67);
+}
+.card .actively-hiring {
+    margin: 5px 0px;
+}
+.card .actively-hiring span {
+    background-color: rgb(41, 141, 41);
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+}
+
+.card .company {
+    color: yellowgreen;
+    font-weight: bold;
+    font-size: 20px;
+}
+.skills {
+    display: flex;
+    flex: 0 0 cal(20%);
+    flex-wrap: wrap;
+    color: rgb(41, 161, 236);
+    border: rgb(41, 161, 236);
+    border-radius: 3px;
+}
+.skill {
+    display: inline-block;
+    margin: 5px 5px;
+    border: 2px solid rgb(41, 161, 236);
+    border-radius: 4px;
+    padding: 3px 5px;
+}
+.skill:hover {
+    background-color: rgb(41, 161, 236);
+    color: black;
+}
+
+.card div .view-details-btn,
+.card div a .view-details-btn {
+    padding: 10px 10px;
+    background-color: rgb(15, 136, 211);
+    border-radius: 8px;
+    color: white;
+    border: none;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* modal styles */
+.modal-cntrlr {
+    text-decoration: none;
+}
+.modal {
+    width: 350px;
+    /* height: 400px; */
+    padding: 20px 20px;
+    background-color: rgba(64, 8, 62, 1);
+    border-radius: 10px;
+    z-index: 10;
+    color: white;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
+        sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+.open-modal {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal .job-desc-heading {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(108, 12, 28);
+    border-radius: 10px;
+    background-color: #13596e;
+    padding: 0px 20px;
+    /* justify-self: center; */
+}
+.modal .job-desc-heading h4 {
+    margin: 10px auto;
+    /* justify-self: center; */
+}
+.modal .job-desc-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 0 125px;
+    align-items: center;
+    padding-left: 20px;
+    /* justify-content: center; */
+}
+.job-desc-point,
+.job-desc-point2 {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.job-desc-point2 {
+    width: 100%;
+}
+.job-desc-point h5,
+.job-desc-point h5 h6,
+.job-desc-point2 h5,
+.job-desc-point2 h5 h6 {
+    padding: 5px 0px;
+    margin-top: 10px;
+    color: aqua;
+}
+
+.jod-desc {
+    margin: 8px 10px;
+}
+
+.ok-btn {
+    margin: 10px auto;
+    padding: 12px 30px;
+    background-color: blueviolet;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    border: none;
+}
+.ok-btn:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+.apply-job-link {
+    text-decoration: none;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+}
+.hidden {
+    display: none;
+}
+
+/* apply job popup design */
+/* 
+profile-popup - container
+profile-title -title
+form form
+profile-details- user-details
+profile-input-box -input-box
+profile details
+
+*/
+
+.profile-popup {
+    max-width: 500px;
+    width: 100%;
+    background-color: #651d68;
+    padding: 25px 30px;
+    border-radius: 5px;
+    font-family: "Poppins", sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.01);
+    visibility: hidden;
+    color: wheat;
+    z-index: 7;
+}
+
+.profile {
+    font-size: 16;
+}
+.open-profile-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.profile-popup .profile-title {
+    font-size: 23px;
+    font-weight: 500;
+    position: relative;
+}
+.profile-popup .profile-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background-color: red;
+}
+
+.profile-popup form .profile-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .profile-details .profile-input-box {
+    margin: 10px 0px 8px 0px;
+    width: calc(100% / 2 - 20px);
+}
+
+.profile-details .profile-input-box .profile {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profile-details .profile-input-box input {
+    height: 30px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 14px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.profile-details .profile-input-box input:focus,
+.profile-details .profile-input-box input:valid {
+    border-color: #9b59b6;
+}
+
+form .gender-details .gender-title {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+form .gender-details .catagory {
+    display: flex;
+    width: 80%;
+
+    margin: 14px 0px;
+    justify-content: space-between;
+}
+.gender-details .catagory label {
+    display: flex;
+    align-items: center;
+}
+
+.gender-details .catagory .dot {
+    height: 8px;
+    width: 8px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5px solid transparent;
+}
+
+.dot-2:checked ~ .catagory label .two,
+.dot-3:checked ~ .catagory label .three,
+.dot-1:checked ~ .catagory label .one {
+    border-color: #d9d9d9;
+    background: #9b59b6;
+}
+
+form input[type="radio"] {
+    display: none;
+}
+
+form input[type="file"] {
+    display: none;
+}
+
+.resume-label {
+    display: inline-block;
+    text-transform: uppercase;
+    color: #fff;
+    background: #c02bb0;
+    text-align: center;
+    padding: 5px 5px;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 5px 15px 25px Irgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+.resume-label:active {
+    transform: scale(0.9);
+}
