@@ -262,6 +262,7 @@ section {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.5);
     scale: 1.05;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .project-img-wrap {
