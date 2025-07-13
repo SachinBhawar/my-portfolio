@@ -1,28 +1,34 @@
 import axios from "axios";
 import querystring from "querystring";
 
+// Configuration
 const {
     SPOTIFY_CLIENT_ID,
     SPOTIFY_CLIENT_SECRET,
-    SPOTIFY_REDIRECT_URI = "https://sachinbhawar.netlify.app/callback",
+    URL,
+    SPOTIFY_REDIRECT_URI = `${URL}/.netlify/functions/spotify/callback`,
 } = process.env;
 
-let accessToken = null;
-let refreshToken = null;
+const SPOTIFY_API_BASE = "https://api.spotify.com/v1";
+const SPOTIFY_AUTH_BASE = "https://accounts.spotify.com";
 
-const getAuthUrl = () => {
-    const scopes = "user-read-currently-playing user-top-read user-modify-playback-state";
-    return `https://accounts.spotify.com/authorize?${querystring.stringify({
+// Token storage (in-memory for demo - consider Netlify KV store for production)
+const tokenStore = new Map();
+
+const getAuthUrl = (state) => {
+    const params = {
         response_type: "code",
         client_id: SPOTIFY_CLIENT_ID,
-        scope: scopes,
+        scope: "user-read-currently-playing user-top-read user-modify-playback-state",
         redirect_uri: SPOTIFY_REDIRECT_URI,
-    })}`;
+        state,
+    };
+    return `${SPOTIFY_AUTH_BASE}/authorize?${querystring.stringify(params)}`;
 };
 
-const getTokens = async (code) => {
+const exchangeCodeForToken = async (code) => {
     const { data } = await axios.post(
-        "https://accounts.spotify.com/api/token",
+        `${SPOTIFY_AUTH_BASE}/api/token`,
         querystring.stringify({
             grant_type: "authorization_code",
             code,
@@ -39,9 +45,9 @@ const getTokens = async (code) => {
     return data;
 };
 
-const refreshAccessToken = async () => {
+const refreshToken = async (refreshToken) => {
     const { data } = await axios.post(
-        "https://accounts.spotify.com/api/token",
+        `${SPOTIFY_AUTH_BASE}/api/token`,
         querystring.stringify({
             grant_type: "refresh_token",
             refresh_token: refreshToken,
@@ -57,63 +63,80 @@ const refreshAccessToken = async () => {
     return data.access_token;
 };
 
-const getSpotifyData = async () => {
+const fetchWithToken = async (token, url, options = {}) => {
+    try {
+        const { data } = await axios({
+            ...options,
+            url: `${SPOTIFY_API_BASE}${url}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ...options.headers,
+            },
+        });
+        return { data, error: null };
+    } catch (error) {
+        return { data: null, error };
+    }
+};
+
+const getSpotifyData = async (token) => {
     const [nowPlaying, topTracks] = await Promise.all([
-        axios
-            .get("https://api.spotify.com/v1/me/player/currently-playing", {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            })
-            .catch(() => ({ data: null })),
-        axios.get("https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=short_term", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        }),
+        fetchWithToken(token, "/me/player/currently-playing"),
+        fetchWithToken(token, "/me/top/tracks?limit=10&time_range=short_term"),
     ]);
 
     return {
-        now_playing: nowPlaying.data?.item || null,
-        top_tracks: topTracks.data.items.map((track) => ({
-            id: track.id,
-            name: track.name,
-            artists: track.artists.map((artist) => artist.name),
-            album: track.album.name,
-            duration_ms: track.duration_ms,
-            uri: track.uri,
-            image: track.album.images[0]?.url,
-        })),
+        nowPlaying: nowPlaying.data?.item || null,
+        topTracks:
+            topTracks.data?.items?.map((track) => ({
+                id: track.id,
+                name: track.name,
+                artists: track.artists.map((artist) => artist.name),
+                album: track.album.name,
+                uri: track.uri,
+                image: track.album.images[0]?.url,
+            })) || [],
     };
 };
 
-const handlePlayback = async (action, trackUri) => {
-    const endpoint =
-        action === "pause"
-            ? "https://api.spotify.com/v1/me/player/pause"
-            : "https://api.spotify.com/v1/me/player/play";
+const handlePlayback = async (token, action, trackUri) => {
+    const endpoint = action === "pause" ? "/me/player/pause" : "/me/player/play";
+    const data = action === "play" ? { uris: [trackUri] } : null;
 
-    await axios.put(endpoint, action === "play" ? { uris: [trackUri] } : {}, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+    await fetchWithToken(token, endpoint, {
+        method: "PUT",
+        data,
     });
 };
 
 export const handler = async (event) => {
-    const path = event.path.replace("/.netlify/functions/spotify", "");
+    const { path, httpMethod, queryStringParameters, body } = event;
+    const route = path.replace("/.netlify/functions/spotify", "");
+    const state = Math.random().toString(36).substring(2, 15);
 
-    if (path === "/auth") {
+    // Auth redirect
+    if (route === "/auth") {
         return {
             statusCode: 302,
-            headers: { Location: getAuthUrl() },
+            headers: {
+                Location: getAuthUrl(state),
+            },
         };
     }
 
-    if (path === "/callback") {
+    // Callback handler
+    if (route === "/callback") {
         try {
-            const { code } = event.queryStringParameters;
-            const tokens = await getTokens(code);
-            accessToken = tokens.access_token;
-            refreshToken = tokens.refresh_token;
+            const { code, state } = queryStringParameters;
+            const tokens = await exchangeCodeForToken(code);
+            tokenStore.set(state, tokens);
 
             return {
                 statusCode: 302,
-                headers: { Location: "/spotify" },
+                headers: {
+                    Location: "/spotify",
+                    "Set-Cookie": `spotify_state=${state}; HttpOnly; Path=/`,
+                },
             };
         } catch (error) {
             return {
@@ -123,19 +146,26 @@ export const handler = async (event) => {
         }
     }
 
-    //  authentication Check
-    if (!accessToken) {
+    // Get state from cookie
+    const stateCookie = event.headers.cookie
+        ?.split(";")
+        .find((c) => c.trim().startsWith("spotify_state="))
+        ?.split("=")[1];
+
+    if (!stateCookie || !tokenStore.has(stateCookie)) {
         return {
             statusCode: 401,
             body: JSON.stringify({ error: "Not authenticated" }),
         };
     }
 
+    let { access_token, refresh_token } = tokenStore.get(stateCookie);
+
     // Handle playback control
-    if (event.httpMethod === "POST") {
+    if (httpMethod === "POST") {
         try {
-            const { action, track_uri } = JSON.parse(event.body);
-            await handlePlayback(action, track_uri);
+            const { action, trackUri } = JSON.parse(body);
+            await handlePlayback(access_token, action, trackUri);
             return {
                 statusCode: 200,
                 body: JSON.stringify({ success: true }),
@@ -148,19 +178,20 @@ export const handler = async (event) => {
         }
     }
 
-    // Main data endpoint
+    // Main endpoint - get Spotify data
     try {
-        const spotifyData = await getSpotifyData();
+        const spotifyData = await getSpotifyData(access_token);
         return {
             statusCode: 200,
             body: JSON.stringify(spotifyData, null, 2),
         };
     } catch (error) {
-        // Token refresh logic
-        if (error.response?.status === 401 && refreshToken) {
+        // Token refresh if expired
+        if (error.response?.status === 401 && refresh_token) {
             try {
-                accessToken = await refreshAccessToken();
-                const spotifyData = await getSpotifyData();
+                access_token = await refreshToken(refresh_token);
+                tokenStore.set(stateCookie, { access_token, refresh_token });
+                const spotifyData = await getSpotifyData(access_token);
                 return {
                     statusCode: 200,
                     body: JSON.stringify(spotifyData, null, 2),
@@ -168,7 +199,7 @@ export const handler = async (event) => {
             } catch (refreshError) {
                 return {
                     statusCode: 401,
-                    body: JSON.stringify({ error: "Session expired. Please re-authenticate." }),
+                    body: JSON.stringify({ error: "Session expired" }),
                 };
             }
         }
