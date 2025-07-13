@@ -5,8 +5,8 @@ import querystring from "querystring";
 const {
     SPOTIFY_CLIENT_ID,
     SPOTIFY_CLIENT_SECRET,
-    URL,
-    SPOTIFY_REDIRECT_URI = `${URL}/.netlify/functions/spotify/callback`,
+    MYURL,
+    SPOTIFY_REDIRECT_URI = `${MYURL}/.netlify/functions/spotify/callback`,
 } = process.env;
 
 const SPOTIFY_API_BASE = "https://api.spotify.com/v1";
