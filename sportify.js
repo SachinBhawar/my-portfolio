@@ -1,11 +1,11 @@
 class SpotifyIntegration {
     constructor() {
-        this.apiBase = "/.netlify/functions/spotify";
+        this.apiBase = "/.netlify/functions/sportify";
         this.init();
     }
 
     async init() {
-        if (window.location.pathname !== "/spotify") return;
+        if (window.location.pathname !== "/sportify") return;
 
         await this.checkAuth();
         await this.loadData();
