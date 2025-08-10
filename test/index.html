@@ -8,6 +8,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         />
+        <!-- <script src="https://kit.fontawesome.com/bd6605a554.js" crossorigin="anonymous"></script> -->
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap"
             rel="stylesheet"
@@ -15,7 +16,7 @@
         <style>
             :root {
                 --primary: #6e44ff;
-                --secondary: #ff4d94;
+                --secondary: #e74077;
                 --accent: #0ff;
                 --dark: #0f0e17;
                 --light: #fffffe;
@@ -65,7 +66,7 @@
 
             section {
                 padding: 100px 0;
-                /* position: relative; */
+                position: relative;
             }
 
             .section-title {
@@ -99,7 +100,7 @@
 
             /* Particles Background */
             #particles-js {
-                position: absolute;
+                position: fixed;
                 width: 100%;
                 height: 100%;
                 top: 0;
@@ -231,38 +232,6 @@
                 font-weight: 600;
                 position: relative;
                 top: 0;
-                animation: slide 8s steps(3) infinite;
-            }
-
-            @keyframes slide {
-                100% {
-                    top: -210px;
-                }
-            }
-
-            .dynamic-text li span {
-                position: relative;
-            }
-
-            .dynamic-text li span::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background: var(--dark);
-                border-left: 2px solid var(--accent);
-                animation: typing 2s steps(10) infinite;
-            }
-
-            @keyframes typing {
-                40%,
-                60% {
-                    left: calc(100% + 10px);
-                }
-                100% {
-                    left: 0;
-                }
             }
 
             .hero-text p {
@@ -288,6 +257,26 @@
                 position: relative;
                 box-shadow: 0 0 50px rgba(110, 68, 255, 0.3);
                 animation: float 6s ease-in-out infinite;
+            }
+
+            #blinking-cursor {
+                height: 0.8rem;
+                width: 1px;
+                color: var(--secondary);
+                background-color: var(--secondary);
+                animation: blink 0.3s steps(1) infinite;
+            }
+
+            @keyframes blink {
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
             }
 
             @keyframes float {
@@ -559,65 +548,67 @@
                 backdrop-filter: blur(10px);
             }
 
-            .timeline {
+            .timeline-container {
                 position: relative;
                 max-width: 800px;
                 margin: 0 auto;
+            }
+
+            .timeline {
+                position: relative;
+                padding: 0;
+                list-style: none;
             }
 
             .timeline::before {
                 content: "";
                 position: absolute;
                 top: 0;
+                bottom: 0;
                 left: 50%;
-                transform: translateX(-50%);
                 width: 2px;
-                height: 100%;
+                margin-left: -1px;
                 background: var(--primary);
             }
 
             .timeline-item {
                 position: relative;
                 margin-bottom: 50px;
-                width: calc(50% - 40px);
+                width: 100%;
+                clear: both;
             }
 
-            .timeline-item:nth-child(odd) {
+            .timeline-content {
+                position: relative;
+                width: 45%;
+                padding: 20px;
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                transition: var(--transition);
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
                 float: left;
-                clear: right;
-                transform: translateX(-30px);
+                left: 0;
             }
 
-            .timeline-item:nth-child(even) {
+            .timeline-item:nth-child(even) .timeline-content {
                 float: right;
-                clear: left;
-                transform: translateX(30px);
+                right: 0;
             }
 
             .timeline-dot {
                 position: absolute;
-                top: 30px;
+                top: 32px;
+                left: 50%;
                 width: 20px;
                 height: 20px;
                 background: linear-gradient(135deg, var(--primary), var(--secondary));
                 border-radius: 50%;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-dot {
-                right: -60px;
-            }
-
-            .timeline-item:nth-child(even) .timeline-dot {
-                left: -60px;
-            }
-
-            .timeline-content {
-                background: var(--glass);
-                border: 1px solid var(--glass-border);
-                border-radius: 15px;
-                padding: 20px;
-                backdrop-filter: blur(10px);
-                transition: var(--transition);
+                transform: translateX(-50%);
+                z-index: 1;
             }
 
             .timeline-content:hover {
@@ -645,17 +636,20 @@
             /* Contact Section */
             #contact {
                 position: relative;
+                padding-bottom: 150px;
             }
 
             .contact-container {
                 display: flex;
                 flex-wrap: wrap;
+                justify-content: center;
                 gap: 40px;
             }
 
             .contact-info {
                 flex: 1;
                 min-width: 300px;
+                max-width: 600px;
             }
 
             .contact-info h3 {
@@ -819,6 +813,7 @@
                     flex-direction: column;
                 }
 
+                /* Timeline adjustments for mobile */
                 .timeline::before {
                     left: 30px;
                 }
@@ -829,11 +824,10 @@
                     padding-right: 20px;
                 }
 
-                .timeline-item:nth-child(odd),
-                .timeline-item:nth-child(even) {
-                    float: none;
-                    clear: none;
-                    transform: none;
+                .timeline-content {
+                    width: 100%;
+                    float: none !important;
+                    margin-bottom: 20px;
                 }
 
                 .timeline-dot {
@@ -852,6 +846,10 @@
 
                 .section-title h2 {
                     font-size: 2rem;
+                }
+
+                .project-card {
+                    margin-bottom: 30px;
                 }
             }
         </style>
@@ -888,9 +886,11 @@
                         <h1>Hello!👋 I'm <span class="highlight">Sachin Bhawar</span></h1>
                         <div class="dynamic-text">
                             <ul>
-                                <li><span>Web Developer</span></li>
-                                <li><span>React Developer</span></li>
-                                <li><span>Coding Enthusiast</span></li>
+                                <li>
+                                    <span class="dynamic-text2"></span> <span id="blinking-cursor">.</span>
+                                </li>
+                                <!-- <li><span>React Developer</span></li>
+                                <li><span>Coding Enthusiast</span></li> -->
                             </ul>
                         </div>
                         <p>
@@ -912,14 +912,16 @@
                                 ><i class="fab fa-whatsapp"></i
                             ></a>
                         </div>
-                        <a href="#" class="btn">Download Resume</a>
+                        <a
+                            href="../assets/resume.pdf"
+                            class="btn"
+                            download="Sachin Bhawar - Frontend Developer - Resume"
+                            >Download Resume</a
+                        >
                     </div>
                     <div class="hero-img">
                         <div class="img-box">
-                            <img
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                                alt="Sachin Bhawar"
-                            />
+                            <img src="../assets/myPhoto.jpg" alt="Sachin Bhawar" />
                         </div>
                     </div>
                 </div>
@@ -935,10 +937,7 @@
                 <div class="about-content">
                     <div class="about-img">
                         <div class="img-container">
-                            <img
-                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                                alt="Sachin Bhawar"
-                            />
+                            <img src="../assets/myPhoto5.jpg" alt="Sachin Bhawar" />
                         </div>
                     </div>
                     <div class="about-text">
@@ -1011,10 +1010,7 @@
                     <!-- Project 1 -->
                     <div class="project-card">
                         <div class="project-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
-                                alt="E-commerce Project"
-                            />
+                            <img src="../assets/project11.jpg" alt="E-commerce Project" />
                         </div>
                         <div class="project-content">
                             <h3>E-commerce Web Application</h3>
@@ -1038,10 +1034,7 @@
                     <!-- Project 2 -->
                     <div class="project-card">
                         <div class="project-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
-                                alt="Chat App"
-                            />
+                            <img src="../assets/project22.jpg" alt="Chat App" />
                         </div>
                         <div class="project-content">
                             <h3>ChatterUp Live Chat App</h3>
@@ -1063,10 +1056,7 @@
                     <!-- Project 3 -->
                     <div class="project-card">
                         <div class="project-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80"
-                                alt="Social Media API"
-                            />
+                            <img src="../assets/project33.jpg" alt="Social Media API" />
                         </div>
                         <div class="project-content">
                             <h3>Social Media REST API</h3>
@@ -1088,10 +1078,7 @@
                     <!-- Project 4 -->
                     <div class="project-card">
                         <div class="project-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
-                                alt="Job Portal"
-                            />
+                            <img src="../assets/project44.jpg" alt="Job Portal" />
                         </div>
                         <div class="project-content">
                             <h3>Easily Job Portal MVC App</h3>
@@ -1109,6 +1096,77 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Project 5 Autocomplete Project -->
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="../assets/project55.jpg" alt="Autocomplete Project Screenshot" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Autocomplete Search App</h3>
+                            <p>
+                                A React-based autocomplete app that fetches product data online and suggests
+                                matching results in real-time as the user types in the search box.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://github.com/SachinBhawar/AutocompleteNew" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://autocomplete-new.vercel.app/" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 AI Chatbot Project -->
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="../assets/project66.jpg" alt="AI Chatbot Project Screenshot" />
+                        </div>
+                        <div class="project-content">
+                            <h3>AI-Powered Chatbot</h3>
+                            <p>
+                                An intelligent chatbot built using the Gemini AI model that understands
+                                natural language and responds in real-time to user queries with smart and
+                                contextual replies.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://github.com/SachinBhawar/ai-chatbot" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://ai-chatbot-by-sachinbhawar.vercel.app/" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 7 Expense Tracker Project -->
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="../assets/project77.jpg" alt="Expense Tracker Project Screenshot" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Expense Tracker</h3>
+                            <p>
+                                A full-featured expense tracking application built in React that lets users
+                                record income and expenses, view transaction history, and monitor their
+                                financial balance with clean UI and persistent data.
+                            </p>
+                            <div class="project-links">
+                                <a
+                                    href="https://github.com/SachinBhawar/Expense-Tracker-With-All-Functions"
+                                    target="_blank"
+                                >
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://expense-tracker-by-sachin.vercel.app/" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1119,39 +1177,41 @@
                 <div class="section-title">
                     <h2>Education</h2>
                 </div>
-                <div class="timeline">
-                    <!-- Education 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>MERN Full Stack Web Development</h3>
-                            <h4>Coding Ninjas, 2024</h4>
-                            <p>
-                                Comprehensive training in modern web development technologies including
-                                MongoDB, Express, React, and Node.js.
-                            </p>
-                        </div>
-                    </div>
+                <div class="timeline-container">
+                    <ul class="timeline">
+                        <!-- Education 1 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>MERN Full Stack Web Development</h3>
+                                <h4>Coding Ninjas, 2024</h4>
+                                <p>
+                                    Comprehensive training in modern web development technologies including
+                                    MongoDB, Express, React, and Node.js.
+                                </p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
 
-                    <!-- Education 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>PGDIIT</h3>
-                            <h4>IIT Bombay, Mumbai 2013</h4>
-                            <p>Post Graduate Diploma in Industrial Instrumentation and Technology.</p>
-                        </div>
-                    </div>
+                        <!-- Education 2 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>PGDIIT</h3>
+                                <h4>IIT Bombay, Mumbai 2013</h4>
+                                <p>Post Graduate Diploma in Industrial Instrumentation and Technology.</p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
 
-                    <!-- Education 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>B.E. Mechanical</h3>
-                            <h4>KKWIEER Nashik, 2010</h4>
-                            <p>Bachelor of Engineering in Mechanical Engineering.</p>
-                        </div>
-                    </div>
+                        <!-- Education 3 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>B.E. Mechanical</h3>
+                                <h4>KKWIEER Nashik, 2010</h4>
+                                <p>Bachelor of Engineering in Mechanical Engineering.</p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -1162,38 +1222,43 @@
                 <div class="section-title">
                     <h2>Work Experience</h2>
                 </div>
-                <div class="timeline">
-                    <!-- Experience 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Territory Executive</h3>
-                            <h4>Team Lease / JJSV | June 2022 - May 2023</h4>
-                            <p>
-                                Managed sales operations and client relationships in the assigned territory.
-                            </p>
-                        </div>
-                    </div>
+                <div class="timeline-container">
+                    <ul class="timeline">
+                        <!-- Experience 1 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Territory Executive</h3>
+                                <h4>Team Lease / JJSV | June 2022 - May 2023</h4>
+                                <p>
+                                    Managed sales operations and client relationships in the assigned
+                                    territory.
+                                </p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
 
-                    <!-- Experience 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Area Business Manager</h3>
-                            <h4>Amanta Healthcare | Nov 2021 - May 2022</h4>
-                            <p>Oversaw business operations and sales strategies for the assigned region.</p>
-                        </div>
-                    </div>
+                        <!-- Experience 2 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Area Business Manager</h3>
+                                <h4>Amanta Healthcare | Nov 2021 - May 2022</h4>
+                                <p>
+                                    Oversaw business operations and sales strategies for the assigned region.
+                                </p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
 
-                    <!-- Experience 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Design Engineer</h3>
-                            <h4>Astrotec | May 2018 - Oct 2020</h4>
-                            <p>Designed and developed engineering solutions for various projects.</p>
-                        </div>
-                    </div>
+                        <!-- Experience 3 -->
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Design Engineer</h3>
+                                <h4>Astrotec | May 2018 - Oct 2020</h4>
+                                <p>Designed and developed engineering solutions for various projects.</p>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -1412,6 +1477,60 @@
                         link.classList.add("active");
                     }
                 });
+            });
+
+            // Typing Animation
+            const typingBox = document.getElementsByClassName("dynamic-text2")[0];
+            // console.log(typingBox);
+            const roles = ["Web Developer", "React Developer", "Coding Enthusiast"];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let typingDelay = 130;
+            let errasingDelay = 100;
+
+            function type() {
+                if (roleIndex < roles.length) {
+                    if (charIndex < roles[roleIndex].length) {
+                        typingBox.textContent += roles[roleIndex][charIndex];
+                        charIndex++;
+                        setTimeout(() => {
+                            // console.log(charIndex);
+                            type();
+                        }, typingDelay);
+                    } else {
+                        charIndex--;
+                        setTimeout(() => {
+                            errase();
+                        }, errasingDelay + 700);
+                    }
+                } else {
+                    roleIndex = 0;
+                    setTimeout(() => {
+                        type();
+                    }, typingDelay);
+                }
+            }
+
+            function errase() {
+                if (charIndex >= 0) {
+                    let text = typingBox.textContent;
+                    typingBox.textContent = text.substring(0, charIndex);
+                    charIndex--;
+                    setTimeout(() => {
+                        errase();
+                    }, errasingDelay);
+                } else {
+                    charIndex++;
+                    roleIndex++;
+
+                    setTimeout(() => {
+                        type();
+                    }, typingDelay);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                type();
             });
         </script>
     </body>
