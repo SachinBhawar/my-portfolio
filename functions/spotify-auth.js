@@ -44,4 +44,3 @@ export const handler = async (event) => {
 
 
 
-https://accounts.spotify.com/authorize?response_type=code&client_id=cb62d129a8c343338f2a448e8406ebd3&scope=user-follow-read%20user-read-playback-state%20user-modify-playback-state&redirect_uri=https://sachinbhawar.netlify.app/&state=xyz
