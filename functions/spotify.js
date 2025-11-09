@@ -96,7 +96,7 @@ const handleTopTracks = async (accessToken) => {
 const handleNowPlaying = async (accessToken) => {
     try {
         const data = await makeSpotifyRequest(accessToken, "me/player/currently-playing");
-        
+
         if (!data || !data.item) {
             return {
                 now_playing: {
@@ -143,12 +143,7 @@ const handlePlay = async (accessToken, event) => {
         trackUri = body.trackUri;
     }
 
-    await makeSpotifyRequest(
-        accessToken, 
-        "me/player/play", 
-        "PUT", 
-        trackUri ? { uris: [trackUri] } : null
-    );
+    await makeSpotifyRequest(accessToken, "me/player/play", "PUT", trackUri ? { uris: [trackUri] } : null);
 
     return { message: "Playback started" };
 };
@@ -180,7 +175,7 @@ export const handler = async (event) => {
     }
 
     const path = event.path.replace("/spotify", "").replace("/.netlify/functions/spotify", "");
-    
+
     try {
         const accessToken = await getAccessToken();
         let data;
@@ -211,6 +206,6 @@ export const handler = async (event) => {
         return jsonResponse(null, 200, data);
     } catch (error) {
         console.error("Error in handler:", error);
-        return jsonResponse(null, 500, { error: "Internal Server Error" });
+        return jsonResponse(null, 500, { error: error.message });
     }
 };
