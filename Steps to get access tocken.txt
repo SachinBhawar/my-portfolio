@@ -1,0 +1,28 @@
+To get a Spotify refresh token using Postman, you need to use the Authorization Code flow. This process involves obtaining an initial authorization code through a browser and then exchanging that code for an access token and a refresh token in Postman. 
+Prerequisites
+Spotify Developer Dashboard:
+Log in to your Spotify Developer Dashboard.
+Create a new app (if you haven't already).
+Note your Client ID and Client Secret.
+In the app's settings, add a Redirect URI. For use with Postman, a common practice is to use https://www.postman.com/oauth2/callback. 
+Step-by-Step Guide
+Part 1: Get the Authorization Code
+Open a new request tab in Postman.
+Go to the Authorization tab.
+Select OAuth 2.0 from the Type dropdown.
+Under Configure New Token, set the following values:
+Token Name: Spotify Auth (or any name you prefer)
+Grant Type: Authorization Code
+Callback URL: https://www.postman.com/oauth2/callback (must match the Redirect URI in your Spotify app settings)
+Auth URL: https://accounts.spotify.com/authorize
+Access Token URL: https://accounts.spotify.com/api/token
+Client ID: Your Spotify Client ID
+Client Secret: Your Spotify Client Secret
+Scope: Enter the desired scopes (e.g., user-read-private user-read-email playlist-read-private playlist-modify-private are common, separated by spaces).
+State: (Optional) Can be left empty or set to a random value.
+Client Authentication: Select Send client credentials in body.
+Click the Get New Access Token button.
+A new browser window or Postman pop-up will open, prompting you to log in to Spotify and authorize your app's access.
+After you approve, you will be redirected to the Callback URL, and Postman will capture the authorization code.
+Postman will then show a window with the generated Access Token and, importantly, the Refresh Token.
+Select Use Token to store the token for your request. 
