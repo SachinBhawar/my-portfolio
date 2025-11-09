@@ -70,12 +70,10 @@ const makeSpotifyRequest = async (accessToken, endpoint, method = "GET", bodyDat
     const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, config);
 
     if (!response.ok) {
-        // Handle 204 No Content responses (common for player actions)
         if (response.status === 204) {
             return null;
         }
 
-        // Handle 401 Unauthorized (token might be expired)
         if (response.status === 401) {
             throw new Error("Unauthorized - token may be invalid");
         }
@@ -101,6 +99,9 @@ const handleTopTracks = async (accessToken) => {
             throw new Error("No top tracks data received");
         }
 
+        if (data.items.length === 0) {
+            return { message: "No top tracks available." };
+        }
         return data.items.map((track) => ({
             title: track.name,
             artist: track.artists.map((artist) => artist.name).join(", "),
