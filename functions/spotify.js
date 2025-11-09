@@ -36,13 +36,6 @@ const getAccessToken = async () => {
         });
 
         if (!response.ok) {
-            return res.send({
-                status: response.status,
-                message: "Failed to fetch access token",
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
-                refresh_token: REFRESH_TOKEN,
-            });
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -87,16 +80,20 @@ const makeSpotifyRequest = async (accessToken, endpoint, method = "GET", bodyDat
 };
 
 const handleTopTracks = async (accessToken) => {
-    const data = await makeSpotifyRequest(accessToken, "me/top/tracks?limit=10&time_range=short_term");
+    try {
+        const data = await makeSpotifyRequest(accessToken, "me/top/tracks?limit=10&time_range=short_term");
 
-    return data.items.map((track) => ({
-        title: track.name,
-        artist: track.artists.map((artist) => artist.name).join(", "),
-        album: track.album.name,
-        albumImageUrl: track.album.images[0]?.url || null,
-        spotifyUrl: track.external_urls.spotify,
-        previewUrl: track.preview_url,
-    }));
+        return data.items.map((track) => ({
+            title: track.name,
+            artist: track.artists.map((artist) => artist.name).join(", "),
+            album: track.album.name,
+            albumImageUrl: track.album.images[0]?.url || null,
+            spotifyUrl: track.external_urls.spotify,
+            previewUrl: track.preview_url,
+        }));
+    } catch (error) {
+        return;
+    }
 };
 
 // function to handle now playing track
