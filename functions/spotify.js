@@ -1,4 +1,3 @@
-import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -23,19 +22,25 @@ const jsonResponse = (res, statusCode, data) => {
 // Function to get access token using refresh token
 const getAccessToken = async () => {
     try {
-        const response = await axios.post(
-            "https://accounts.spotify.com/api/token",
-            new URLSearchParams({
+        const response = await fetch("https://accounts.spotify.com/api/token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
                 grant_type: "refresh_token",
                 refresh_token: REFRESH_TOKEN,
                 client_id: CLIENT_ID,
                 client_secret: CLIENT_SECRET,
             }),
-            {
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            }
-        );
-        return response.data.access_token;
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.access_token;
     } catch (error) {
         console.error("Error fetching access token:", error);
         throw error;
@@ -43,19 +48,35 @@ const getAccessToken = async () => {
 };
 
 // function to make authenticated requests to Spotify API
-const makeSpotifyRequest = async (accessToken, endpoint, method = "GET", data = null) => {
+const makeSpotifyRequest = async (accessToken, endpoint, method = "GET", bodyData = null) => {
     const config = {
         method,
-        url: `https://api.spotify.com/v1/${endpoint}`,
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+        },
     };
 
-    if (data) {
-        config.data = data;
+    if (bodyData && (method === "PUT" || method === "POST")) {
+        config.body = JSON.stringify(bodyData);
     }
 
-    const response = await axios(config);
-    return response.data;
+    const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, config);
+
+    if (!response.ok) {
+        // Handle 204 No Content responses (common for player actions)
+        if (response.status === 204) {
+            return null;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // For responses with no content, return null
+    if (response.status === 204) {
+        return null;
+    }
+
+    return await response.json();
 };
 
 const handleTopTracks = async (accessToken) => {
@@ -68,14 +89,14 @@ const handleTopTracks = async (accessToken) => {
         albumImageUrl: track.album.images[0]?.url || null,
         spotifyUrl: track.external_urls.spotify,
         previewUrl: track.preview_url,
-        albumImageUrl: track.album.images[0]?.url || null,
     }));
 };
 
-// funtion to handle now playing track
+// function to handle now playing track
 const handleNowPlaying = async (accessToken) => {
     try {
         const data = await makeSpotifyRequest(accessToken, "me/player/currently-playing");
+        
         if (!data || !data.item) {
             return {
                 now_playing: {
@@ -98,7 +119,7 @@ const handleNowPlaying = async (accessToken) => {
         return {
             now_playing: {
                 isPlaying: false,
-                message: "unable to fetch currently playing track.",
+                message: "Unable to fetch currently playing track.",
             },
         };
     }
@@ -122,7 +143,12 @@ const handlePlay = async (accessToken, event) => {
         trackUri = body.trackUri;
     }
 
-    await makeSpotifyRequest(accessToken, "me/player/play", "PUT", trackUri ? { uris: [trackUri] } : null);
+    await makeSpotifyRequest(
+        accessToken, 
+        "me/player/play", 
+        "PUT", 
+        trackUri ? { uris: [trackUri] } : null
+    );
 
     return { message: "Playback started" };
 };
@@ -134,7 +160,6 @@ const handlePause = async (accessToken) => {
 };
 
 // function for all data
-
 const handleAllData = async (accessToken) => {
     const [topTracks, nowPlaying, followedArtists] = await Promise.all([
         handleTopTracks(accessToken),
@@ -155,6 +180,7 @@ export const handler = async (event) => {
     }
 
     const path = event.path.replace("/spotify", "").replace("/.netlify/functions/spotify", "");
+    
     try {
         const accessToken = await getAccessToken();
         let data;
@@ -181,10 +207,10 @@ export const handler = async (event) => {
             default:
                 return jsonResponse(null, 404, { error: "Endpoint not found" });
         }
+
+        return jsonResponse(null, 200, data);
     } catch (error) {
         console.error("Error in handler:", error);
         return jsonResponse(null, 500, { error: "Internal Server Error" });
     }
-
-    return jsonResponse(null, 200, data);
 };
