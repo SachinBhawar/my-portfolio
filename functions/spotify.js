@@ -1,18 +1,16 @@
-import dotenv from "dotenv";
-dotenv.config();
-
+// functions/spotify.js
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
 
 // Helper function for JSON responses
-const jsonResponse = (res, statusCode, data) => {
+const jsonResponse = (statusCode, data) => {
     return {
         statusCode,
         headers: {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,OPTIONS",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
         body: JSON.stringify(data, null, 2),
@@ -22,6 +20,12 @@ const jsonResponse = (res, statusCode, data) => {
 // Function to get access token using refresh token
 const getAccessToken = async () => {
     try {
+        console.log("Fetching access token...");
+
+        if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+            throw new Error("Missing required environment variables");
+        }
+
         const response = await fetch("https://accounts.spotify.com/api/token", {
             method: "POST",
             headers: {
@@ -36,6 +40,8 @@ const getAccessToken = async () => {
         });
 
         if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Spotify token error:", errorText);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -68,6 +74,14 @@ const makeSpotifyRequest = async (accessToken, endpoint, method = "GET", bodyDat
         if (response.status === 204) {
             return null;
         }
+
+        // Handle 401 Unauthorized (token might be expired)
+        if (response.status === 401) {
+            throw new Error("Unauthorized - token may be invalid");
+        }
+
+        const errorText = await response.text();
+        console.error(`Spotify API error (${response.status}):`, errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
     }
 
@@ -83,6 +97,10 @@ const handleTopTracks = async (accessToken) => {
     try {
         const data = await makeSpotifyRequest(accessToken, "me/top/tracks?limit=10&time_range=short_term");
 
+        if (!data || !data.items) {
+            throw new Error("No top tracks data received");
+        }
+
         return data.items.map((track) => ({
             title: track.name,
             artist: track.artists.map((artist) => artist.name).join(", "),
@@ -92,7 +110,8 @@ const handleTopTracks = async (accessToken) => {
             previewUrl: track.preview_url,
         }));
     } catch (error) {
-        return;
+        console.error("Error in handleTopTracks:", error);
+        throw error;
     }
 };
 
@@ -116,6 +135,7 @@ const handleNowPlaying = async (accessToken) => {
                 name: data.item.name,
                 artists: data.item.artists.map((artist) => artist.name).join(", "),
                 album: data.item.album.name,
+                albumImageUrl: data.item.album.images[0]?.url || null,
             },
         };
     } catch (error) {
@@ -131,12 +151,22 @@ const handleNowPlaying = async (accessToken) => {
 
 // function to get followed artists
 const handleFollowedArtists = async (accessToken) => {
-    const data = await makeSpotifyRequest(accessToken, "me/following?type=artist&limit=10");
-    return data.artists.items.map((artist) => ({
-        name: artist.name,
-        spotifyUrl: artist.external_urls.spotify,
-        imageUrl: artist.images[0]?.url || null,
-    }));
+    try {
+        const data = await makeSpotifyRequest(accessToken, "me/following?type=artist&limit=10");
+
+        if (!data || !data.artists || !data.artists.items) {
+            throw new Error("No followed artists data received");
+        }
+
+        return data.artists.items.map((artist) => ({
+            name: artist.name,
+            spotifyUrl: artist.external_urls.spotify,
+            imageUrl: artist.images[0]?.url || null,
+        }));
+    } catch (error) {
+        console.error("Error in handleFollowedArtists:", error);
+        throw error;
+    }
 };
 
 // function to play track
@@ -161,9 +191,15 @@ const handlePause = async (accessToken) => {
 // function for all data
 const handleAllData = async (accessToken) => {
     const [topTracks, nowPlaying, followedArtists] = await Promise.all([
-        handleTopTracks(accessToken),
+        handleTopTracks(accessToken).catch((error) => {
+            console.error("Error fetching top tracks:", error);
+            return null;
+        }),
         handleNowPlaying(accessToken),
-        handleFollowedArtists(accessToken),
+        handleFollowedArtists(accessToken).catch((error) => {
+            console.error("Error fetching followed artists:", error);
+            return null;
+        }),
     ]);
 
     return {
@@ -174,11 +210,15 @@ const handleAllData = async (accessToken) => {
 };
 
 export const handler = async (event) => {
+    console.log("Function called with path:", event.path);
+    console.log("HTTP Method:", event.httpMethod);
+
     if (event.httpMethod === "OPTIONS") {
-        return jsonResponse(null, 200, {});
+        return jsonResponse(200, {});
     }
 
     const path = event.path.replace("/spotify", "").replace("/.netlify/functions/spotify", "");
+    console.log("Processing path:", path);
 
     try {
         const accessToken = await getAccessToken();
@@ -195,21 +235,30 @@ export const handler = async (event) => {
                 data = await handleFollowedArtists(accessToken);
                 break;
             case "/play":
+                if (event.httpMethod !== "PUT" && event.httpMethod !== "POST") {
+                    return jsonResponse(405, { error: "Method not allowed" });
+                }
                 data = await handlePlay(accessToken, event);
                 break;
             case "/pause":
+                if (event.httpMethod !== "PUT") {
+                    return jsonResponse(405, { error: "Method not allowed" });
+                }
                 data = await handlePause(accessToken);
                 break;
             case "/all":
                 data = await handleAllData(accessToken);
                 break;
             default:
-                return jsonResponse(null, 404, { error: "Endpoint not found" });
+                return jsonResponse(404, { error: "Endpoint not found" });
         }
 
-        return jsonResponse(null, 200, data);
+        return jsonResponse(200, data);
     } catch (error) {
         console.error("Error in handler:", error);
-        return jsonResponse(null, 500, { error: error.message });
+        return jsonResponse(500, {
+            error: "Internal Server Error",
+            message: error.message,
+        });
     }
 };
