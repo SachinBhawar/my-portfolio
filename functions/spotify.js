@@ -36,6 +36,13 @@ const getAccessToken = async () => {
         });
 
         if (!response.ok) {
+            return res.send({
+                status: response.status,
+                message: "Failed to fetch access token",
+                client_id: CLIENT_ID,
+                client_secret: CLIENT_SECRET,
+                refresh_token: REFRESH_TOKEN,
+            });
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
